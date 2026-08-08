@@ -29,11 +29,10 @@
 
 1.解压压缩包到网站目录
 2. 打开index.html，更改第745行的歌曲列表API的URL：
-ctrl+f搜索 
-      const API_URL
-
+ctrl+f搜索const API_URL
 <img width="939" height="279" alt="9272ca71e8ce68a390fa8bf114022069" src="https://github.com/user-attachments/assets/7047f03b-79f0-48e4-972f-769445b76aa3" />
 再更改第1004行的歌词API的URL：
+搜索const apiUrl
 <img width="917" height="271" alt="3424855dc0db1e6829ecea5f113a0ea0" src="https://github.com/user-attachments/assets/f47d97c1-a739-4f71-865a-1060cafb8cb2" />
       
       可以上网搜申请免费域名教程，然后用cloudflare托管域名，也是免费的
