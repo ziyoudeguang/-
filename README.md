@@ -37,6 +37,7 @@
 3.上传歌曲到`music/`里，支持mp3、flac、wav、m4a、ogg
 再上传这首歌曲的歌词`.lrc`文件到`musiclrc/`(不上传也可以，不影响播放)，*要求：歌词文件名与所对应的音乐文件名相同，例
 如：音乐文件名是`中国人能飞-揽佬SKAI ISYOURGOD、Chalky Wong.mp3`，对应的歌词文件名就应该为`中国人能飞-揽佬SKAI ISYOURGOD、Chalky Wong.lrc`
+
 4. 用浏览器访问 `index.html` 所在的 URL 即可自动加载歌单并开始播放
 
 服务器要求：
