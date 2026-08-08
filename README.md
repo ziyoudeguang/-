@@ -17,35 +17,46 @@
 
 ```
 .
-├── index.html         # 前端播放器页面（唯一前端文件，直接部署即可访问）
+├── index.html          # 前端播放器页面（唯一前端文件，直接部署即可访问）
 ├── music_list.php      # 后端接口：扫描 music/ 目录，返回歌单 JSON
 ├── get_lrc.php          # 后端接口：按文件名返回歌词
-└── music/               # 音乐文件存放目录（自行放入音频文件）
-└── musiclrc/               # 音乐歌词文件存放目录（自行放入.lrc歌词文件）
+├── music/               # 音乐文件存放目录（自行放入音频文件）
+└── musiclrc/             # 音乐歌词文件存放目录（自行放入 .lrc 歌词文件）
 ```
-
 
 ## 部署方式
 
-最新版[点击进入下载页面](https://github.com/ziyoudeguang/Web-music-player/releases)
-1.解压压缩包到网站目录
-2. 打开index.html，更改第745行的歌曲列表API的URL：
-ctrl+f搜索const API_URL
-<img width="939" height="279" alt="9272ca71e8ce68a390fa8bf114022069" src="https://github.com/user-attachments/assets/7047f03b-79f0-48e4-972f-769445b76aa3" />
-再更改第1004行的歌词API的URL：
-搜索const apiUrl
-<img width="917" height="271" alt="3424855dc0db1e6829ecea5f113a0ea0" src="https://github.com/user-attachments/assets/f47d97c1-a739-4f71-865a-1060cafb8cb2" />
-      
-      可以上网搜申请免费域名教程，然后用cloudflare托管域名，也是免费的
+最新版：[点击进入下载页面](https://github.com/ziyoudeguang/Web-music-player/releases)
 
-3.上传歌曲到music/里，支持mp3、flac、wav、m4a、ogg,再上传这首歌曲的歌词lrc文件到musiclrc/(不上传也可以，不影响播放)，*要求：歌词文件名与所对应的音乐文件名相同，例如：音乐文件名是中国人能飞-揽佬SKAI ISYOURGOD、Chalky Wong.mp3，对应的歌词文件名就应该为中国人能飞-揽佬SKAI ISYOURGOD、Chalky Wong.lrc
+**1. 解压压缩包到网站目录**
 
-4. 用浏览器访问index.html所在的 URL 即可自动加载歌单并开始播放
+**2. 打开 `index.html`，更改第 745 行的歌曲列表 API 的 URL**
 
-服务器要求：
-- PHP 7.0+（用到了 `scandir`、`pathinfo`、匿名函数排序等基础特性，无特殊扩展依赖），我的PHP版本是7.4
+在文件中搜索 `const API_URL`：
+
+<img width="939" height="279" alt="API_URL 位置示意图" src="https://github.com/user-attachments/assets/7047f03b-79f0-48e4-972f-769445b76aa3" />
+
+再更改第 1004 行的歌词 API 的 URL，搜索 `const apiUrl`：
+
+<img width="917" height="271" alt="apiUrl 位置示意图" src="https://github.com/user-attachments/assets/f47d97c1-a739-4f71-865a-1060cafb8cb2" />
+
+> 可以上网搜索申请免费域名的教程，然后用 Cloudflare 托管域名，也是免费的。
+
+**3. 上传歌曲到 `music/` 目录**
+
+支持 `mp3`、`flac`、`wav`、`m4a`、`ogg` 格式。再上传这首歌曲对应的歌词 `.lrc` 文件到 `musiclrc/`（不上传也可以，不影响播放）。
+
+> **要求**：歌词文件名需与所对应的音乐文件名完全相同。
+>
+> 例如：音乐文件名是 `中国人能飞-揽佬SKAI ISYOURGOD、Chalky Wong.mp3`，对应的歌词文件名就应为 `中国人能飞-揽佬SKAI ISYOURGOD、Chalky Wong.lrc`。
+
+**4. 用浏览器访问 `index.html` 所在的 URL 即可自动加载歌单并开始播放**
+
+### 服务器要求
+
+- PHP 7.0+（用到了 `scandir`、`pathinfo`、匿名函数排序等基础特性，无特殊扩展依赖），作者本人使用的 PHP 版本是 7.4
 - 音乐目录 `music/` 需要 Web 服务器有读取权限，且能被外部直接通过 URL 访问（用于 `<audio>` 标签流式播放）
-- 带宽大一点，因为要传输音频，要不然会造成播放一卡一卡的，或者是一直显示`缓冲中...`
+- 建议带宽充足，因为需要传输音频，否则会造成播放卡顿，或一直显示"缓冲中..."
 
 ## 后端接口说明
 
@@ -82,7 +93,6 @@ ctrl+f搜索const API_URL
 | `format` | 大写的文件扩展名，如 `MP3`/`FLAC` |
 | `filename` | 原始文件名（含扩展名），用于请求歌词接口等 |
 
-
 ## 前端说明（`index.html`）
 
 - 播放器只依赖浏览器原生 `<audio>` 元素和原生 JS，未使用任何第三方框架或 CDN 资源，打开即用
@@ -102,19 +112,22 @@ ctrl+f搜索const API_URL
 ## 常见问题
 
 **Q: 播放速度慢/卡顿是不是因为歌单是通过接口获取的？**
+
 不是。歌单接口只返回一小段 JSON 文本（歌曲信息），只在打开页面时请求一次；实际播放时浏览器 `<audio>` 标签会直接向音频文件地址发起流式请求，两者互不影响。播放速度主要取决于服务器带宽、与用户的物理距离，以及是否使用了 CDN。
 
 **Q: 提示"音乐目录不存在"？**
+
 检查 `music_list.php` 同级目录下是否存在 `music/` 文件夹，且 Web 服务器进程对该目录有读取权限。
 
 **Q: 歌词一直显示"暂无歌词"？**
+
 说明 `get_lrc.php` 未部署或未返回有效歌词数据，播放功能不受影响。
 
-**Q: 怎么联系我"？**
-QQ：2533765959
-邮箱：2533765959@qq.com
-      curtain@ziyoudeguang.cn
+**Q: 怎么联系我？**
+
+- QQ：2533765959
+- 邮箱：2533765959@qq.com / curtain@ziyoudeguang.cn
 
 ## 感谢
-感谢Deepseek老师和claude
 
+感谢 Deepseek 老师和 Claude
