@@ -19,21 +19,29 @@
 .
 ├── index.html         # 前端播放器页面（唯一前端文件，直接部署即可访问）
 ├── music_list.php      # 后端接口：扫描 music/ 目录，返回歌单 JSON
-├── get_lrc.php          # 后端接口：按文件名返回歌词（需自行提供，见下方说明）
-└── music/               # 音乐文件存放目录（自行创建并放入音频文件）
+├── get_lrc.php          # 后端接口：按文件名返回歌词
+└── music/               # 音乐文件存放目录（自行放入音频文件）
+└── musiclrc/               # 音乐歌词文件存放目录（自行放入.lrc歌词文件）
 ```
 
-> ⚠️ 注意：`get_lrc.php` 是 `index.html` 中调用的歌词接口，但目前项目里还没有提供该文件，需要你自行实现或补充（返回格式建议为 LRC 歌词文本或结构化 JSON，具体解析方式以 `index.html` 中 `loadLyrics` 相关逻辑为准）。若没有这个接口，播放器仍可正常播放音乐，只是歌词区域会一直显示"暂无歌词"。
 
 ## 部署方式
 
-1. 将 `index.html`、`music_list.php`、`get_lrc.php` 上传到同一台支持 PHP 的 Web 服务器（Nginx/Apache + PHP 均可）的同一目录下
-2. 在该目录下创建 `music/` 子目录，把音频文件（mp3/flac/wav/m4a/ogg）放进去
-3. 用浏览器访问 `index.html` 所在的 URL 即可自动加载歌单并开始播放
+1.解压压缩包到网站目录
+2. 打开`index.html`，更改第745行的歌曲列表API的URL：
+<img width="939" height="279" alt="9272ca71e8ce68a390fa8bf114022069" src="https://github.com/user-attachments/assets/7047f03b-79f0-48e4-972f-769445b76aa3" />
+再更改第1004行的歌词API的URL：
+<img width="917" height="271" alt="3424855dc0db1e6829ecea5f113a0ea0" src="https://github.com/user-attachments/assets/f47d97c1-a739-4f71-865a-1060cafb8cb2" />
+*可以上网搜申请免费域名教程，然后用cloudflare托管域名，也是免费的
+3.上传歌曲到`music/`里，支持 `mp3`、`flac`、`wav`、`m4a`、`ogg`
+再上传这首歌曲的歌词`.lrc`文件到`musiclrc/`(不上传也可以，不影响播放)，*要求：歌词文件名与所对应的音乐文件名相同，例
+如：音乐文件名是`中国人能飞-揽佬SKAI ISYOURGOD、Chalky Wong.mp3`，对应的歌词文件名就应该为`中国人能飞-揽佬SKAI ISYOURGOD、Chalky Wong.lrc`
+4. 用浏览器访问 `index.html` 所在的 URL 即可自动加载歌单并开始播放
 
 服务器要求：
-- PHP 7.0+（用到了 `scandir`、`pathinfo`、匿名函数排序等基础特性，无特殊扩展依赖）
+- PHP 7.0+（用到了 `scandir`、`pathinfo`、匿名函数排序等基础特性，无特殊扩展依赖），我的PHP版本是7.4
 - 音乐目录 `music/` 需要 Web 服务器有读取权限，且能被外部直接通过 URL 访问（用于 `<audio>` 标签流式播放）
+- 带宽大一点，因为要传输音频，要不然会造成播放一卡一卡的，或者是一直显示`缓冲中...`
 
 ## 后端接口说明
 
@@ -70,13 +78,6 @@
 | `format` | 大写的文件扩展名，如 `MP3`/`FLAC` |
 | `filename` | 原始文件名（含扩展名），用于请求歌词接口等 |
 
-### `get_lrc.php`（需自行提供）
-
-根据文件名返回对应歌词，`index.html` 请求方式为：
-
-```
-GET get_lrc.php?file=<文件名>
-```
 
 ## 前端说明（`index.html`）
 
@@ -105,6 +106,11 @@ GET get_lrc.php?file=<文件名>
 **Q: 歌词一直显示"暂无歌词"？**
 说明 `get_lrc.php` 未部署或未返回有效歌词数据，播放功能不受影响。
 
-## License
+**Q: 怎么联系我"？**
+QQ：2533765959
+邮箱：2533765959@qq.com
+      curtain@ziyoudeguang.cn
 
-代码由 DeepSeek 生成，官网：https://www.deepseek.com/
+## 感谢
+感谢Deepseek老师和claude
+
