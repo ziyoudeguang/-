@@ -33,6 +33,7 @@
 再更改第1004行的歌词API的URL：
 <img width="917" height="271" alt="3424855dc0db1e6829ecea5f113a0ea0" src="https://github.com/user-attachments/assets/f47d97c1-a739-4f71-865a-1060cafb8cb2" />
 *可以上网搜申请免费域名教程，然后用cloudflare托管域名，也是免费的
+
 3.上传歌曲到`music/`里，支持 `mp3`、`flac`、`wav`、`m4a`、`ogg`
 再上传这首歌曲的歌词`.lrc`文件到`musiclrc/`(不上传也可以，不影响播放)，*要求：歌词文件名与所对应的音乐文件名相同，例
 如：音乐文件名是`中国人能飞-揽佬SKAI ISYOURGOD、Chalky Wong.mp3`，对应的歌词文件名就应该为`中国人能飞-揽佬SKAI ISYOURGOD、Chalky Wong.lrc`
