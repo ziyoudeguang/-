@@ -27,7 +27,7 @@
 
 ## 部署方式
 
-最新版点击`https://github.com/ziyoudeguang/Web-music-player/releases`
+最新版[点击进入下载页面](https://github.com/ziyoudeguang/Web-music-player/releases)
 1.解压压缩包到网站目录
 2. 打开index.html，更改第745行的歌曲列表API的URL：
 ctrl+f搜索const API_URL
